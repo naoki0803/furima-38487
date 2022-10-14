@@ -11,7 +11,7 @@
 | last_name          | string | null: false               |
 | first_name_kana    | string | null: false               |
 | last_name_kana     | string | null: false               |
-| birth_date         | data   | null: false               |
+| birth_date         | date   | null: false               |
 
 ### Association
 
@@ -29,9 +29,9 @@
 | state_id                   | integer    | null: false                    |
 | delivery_charge_burden_id  | integer    | null: false                    |
 | prefecture_id              | integer    | null: false                    |
-| delivery_days_id           | integer    | null: false                    |
+| delivery_day_id            | integer    | null: false                    |
 | price                      | integer    | null: false                    |
-| Seller_id                  | references | null: false, foreign_key: true |
+| user_id                    | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -40,13 +40,12 @@
 
 ## purchases テーブル
 
-| Column            | Type       | Options                        |
-| ----------------- | ---------- | ------------------------------ |
-| purchaser_id      | references | null: false, foreign_key: true |
-| item_id           | references | null: false, foreign_key: true |
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| user      | references | null: false, foreign_key: true |
+| item      | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :user
 - belongs_to :item
 - has_one :delivery
 
@@ -62,7 +61,7 @@
 | block             | string     | null: false                    |
 | building          | string     |                                |
 | phone_number      | string     | null: false                    |
-| purchase_id      | references | null: false, foreign_key: true |
+| purchase          | references | null: false, foreign_key: true |
 
 
 ### Association
