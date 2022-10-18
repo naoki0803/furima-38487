@@ -76,6 +76,30 @@ RSpec.describe User, type: :model do
         expect(user.errors.full_messages).to include "Password confirmation doesn't match Password"
       end
 
+      it '英字のみのパスワードでは登録できない' do
+        user = FactoryBot.build(:user)
+        user.password = "aaaaaa"
+        user.password_confirmation = user.password
+        user.valid?
+        expect(user.errors.full_messages).to include "Password is invalid"
+      end
+
+      it '数字のみのパスワードでは登録できない' do
+        user = FactoryBot.build(:user)
+        user.password = "111111"
+        user.password_confirmation = user.password
+        user.valid?
+        expect(user.errors.full_messages).to include "Password is invalid"
+      end
+
+      it '全角文字を含むパスワードでは登録できない' do
+        user = FactoryBot.build(:user)
+        user.password = "１１１ａａａ"
+        user.password_confirmation = user.password
+        user.valid?
+        expect(user.errors.full_messages).to include "Password is invalid"
+      end
+
       # 本人情報の異常系テスト
 
       it 'first_nameが空欄で登録できない' do
@@ -141,6 +165,19 @@ RSpec.describe User, type: :model do
         expect(user.errors.full_messages).to include "Last name kana is invalid"
       end
 
+      it 'first_name_kanaにひらがなを含んで登録できない' do
+        user = FactoryBot.build(:user)
+        user.first_name_kana = "たろう"
+        user.valid?
+        expect(user.errors.full_messages).to include "First name kana is invalid"
+      end
+
+      it 'last_name_kanaにひらがなを含んで登録できない' do
+        user = FactoryBot.build(:user)
+        user.last_name_kana = "すずき"
+        user.valid?
+        expect(user.errors.full_messages).to include "Last name kana is invalid"
+      end
     end
   end
 end
