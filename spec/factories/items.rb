@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :item do
-    image                     {"2"}
     name                      {Faker::Name.initials(number: 5)}
     description               {Faker::Lorem.paragraph}
     category_id               {Category.ids[2]}
