@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :delivery_charge_burden
   belongs_to :prefecture
   belongs_to :delivery_day
+  has_one :purchase
   
   validates :image,                     presence: true
   validates :name,                      presence: true
