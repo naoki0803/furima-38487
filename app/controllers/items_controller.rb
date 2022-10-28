@@ -24,6 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if Purchase.exists?(item_id: @item.id)
+      redirect_to action: :index
+    end
   end
 
   def update
